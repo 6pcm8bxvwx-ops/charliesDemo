@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>Shaun's Demolitions & Excavations — Brand Showcase</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    background: #0a0a0a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #fff;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 24px;
+    background: #000;
+    border-bottom: 1px solid rgba(245,200,117,0.25);
+    flex-shrink: 0;
+    gap: 12px;
+  }
+  .header-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .header-logo { width: 44px; height: 44px; object-fit: contain; flex-shrink: 0; }
+  .brand-name { font-size: 15px; font-weight: 700; color: #F5C875; line-height: 1.2; }
+  .brand-sub  { font-size: 10px; color: rgba(255,255,255,0.38); margin-top: 2px; }
+  .phone-tag  {
+    font-size: 13px; font-weight: 700; color: #F5C875;
+    background: rgba(245,200,117,0.1);
+    border: 1px solid rgba(245,200,117,0.3);
+    border-radius: 6px; padding: 6px 12px;
+    white-space: nowrap; flex-shrink: 0;
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex; background: #111;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    flex-shrink: 0;
+  }
+  .tab {
+    flex: 1; text-align: center; padding: 11px 8px;
+    font-size: 12px; font-weight: 600;
+    color: rgba(255,255,255,0.38); cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    user-select: none;
+  }
+  .tab.active { color: #F5C875; border-bottom-color: #F5C875; }
+
+  /* ── MAIN ── */
+  main { display: flex; flex: 1; overflow: hidden; min-height: 0; }
+
+  /* ── THUMBNAIL RAIL (desktop only) ── */
+  .rail {
+    width: 120px; flex-shrink: 0; overflow-y: auto;
+    background: #111;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    padding: 8px 6px; display: flex; flex-direction: column; gap: 7px;
+  }
+  .rail::-webkit-scrollbar { width: 3px; }
+  .rail::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+  .thumb { cursor: pointer; border-radius: 6px; overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s; flex-shrink: 0; }
+  .thumb.active { border-color: #F5C875; }
+  .thumb.active.v-thumb { border-color: #E8873A; }
+  .thumb img { width: 100%; height: 66px; object-fit: cover; display: block; }
+  .thumb-label { background: #1a1a1a; font-size: 10px; color: rgba(255,255,255,0.4); padding: 3px 6px; line-height: 1.3; }
+  .thumb.active .thumb-label { color: #F5C875; }
+  .thumb.active.v-thumb .thumb-label { color: #E8873A; }
+
+  /* ── STAGE ── */
+  .stage { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+  /* ── INTRO — DESKTOP ── */
+  .intro-screen {
+    flex: 1; display: flex; align-items: center; justify-content: flex-start;
+    flex-direction: row; text-align: left; padding: 40px 60px;
+    position: relative; overflow: hidden; background: #000;
+  }
+  .intro-bg {
+    position: absolute; inset: 0;
+    background: url('images/Logo.PNG') right center / contain no-repeat;
+    opacity: 0.95;
+  }
+  .intro-content {
+    position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start;
+    background: linear-gradient(to right, rgba(0,0,0,0.92) 70%, transparent 100%);
+    padding: 40px 60px 40px 0;
+    max-width: 55%;
+  }
+  .intro-title {
+    font-size: 64px; font-weight: 800;
+    background: linear-gradient(180deg, #e8e8e8 0%, #a0a0a0 40%, #d4d4d4 60%, #787878 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    letter-spacing: 1px; margin-bottom: 5px;
+  }
+  .intro-sub {
+    font-size: 32px; font-weight: 700;
+    background: linear-gradient(180deg, #e8e8e8 0%, #a0a0a0 40%, #d4d4d4 60%, #787878 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    letter-spacing: 4px; text-transform: uppercase; margin-bottom: 18px;
+  }
+  .intro-line { width: 50px; height: 2px; background: #F5C875; margin: 0 0 18px; }
+  .intro-desc { font-size: 14px; color: rgba(255,255,255,0.58); line-height: 1.8; max-width: 420px; margin-bottom: 26px; }
+  .intro-pills { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; justify-content: flex-start; }
+  .intro-pill {
+    font-size: 12px; font-weight: 600;
+    background: rgba(245,200,117,0.1); border: 1px solid rgba(245,200,117,0.25);
+    color: #F5C875; border-radius: 20px; padding: 6px 16px; letter-spacing: 0.5px;
+  }
+  .start-btn {
+    background: #F5C875; color: #0d0d0d; border: none;
+    padding: 14px 36px; border-radius: 8px;
+    font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s;
+    touch-action: manipulation;
+  }
+  .start-btn:hover { opacity: 0.85; }
+  .start-btn:active { opacity: 0.7; }
+
+  /* ── SLIDES ── */
+  .slides-container { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; position: relative; }
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .slide.inactive {
+    opacity: 0;
+  }
+
+  .img-wrap { flex: 1; position: relative; overflow: hidden; background: #000; min-height: 0; }
+  .img-wrap img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .img-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 50px 24px 16px; z-index: 2;
+  }
+  .section-badge {
+    display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; background: #F5C875; color: #0d0d0d;
+    border-radius: 4px; padding: 3px 9px; margin-bottom: 7px;
+  }
+  .section-badge.v { background: #E8873A; }
+  .slide-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.25; }
+  .slide-desc  { font-size: 13px; color: rgba(255,255,255,0.76); line-height: 1.55; max-width: 660px; }
+
+  /* ── CONTROLS ── */
+  .controls {
+    flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 16px; background: #111; border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav-btn {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    color: #fff; padding: 8px 20px; border-radius: 6px; cursor: pointer;
+    font-size: 13px; font-weight: 600; transition: background 0.2s;
+    touch-action: manipulation; user-select: none;
+  }
+  .nav-btn:active { background: rgba(255,255,255,0.2); }
+  .counter { font-size: 12px; color: rgba(255,255,255,0.32); }
+  .dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; max-width: 200px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.18); cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+  .dot.active { background: #F5C875; }
+  .dot.vdot.active { background: #E8873A; }
+
+  /* ── TIMER PROGRESS BAR ── */
+  .timer-bar-wrap {
+    height: 3px; background: rgba(255,255,255,0.07); flex-shrink: 0; position: relative; overflow: hidden;
+  }
+  .timer-bar {
+    height: 100%; width: 100%;
+    background: linear-gradient(to right, #F5C875, #E8873A);
+    transform-origin: left;
+    transition: transform linear;
+  }
+  .timer-bar.paused { background: rgba(255,255,255,0.25); }
+  .timer-label {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 0.5px; line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* ══════════════════════════════
+     MOBILE STYLES (≤ 640px)
+  ══════════════════════════════ */
+  @media (max-width: 640px) {
+
+    /* Header — hide brand-sub, shrink text */
+    .brand-sub { display: none; }
+    .brand-name { font-size: 12px; }
+    .header-logo { width: 36px; height: 36px; }
+    .phone-tag { font-size: 12px; padding: 5px 10px; }
+    header { padding: 8px 14px; }
+
+    /* Hide desktop thumbnail rail */
+    .rail { display: none; }
+
+    /* Intro — stacked, centred, logo as bg */
+    .intro-screen {
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: center;
+      padding: 0 0 36px;
+    }
+    .intro-bg {
+      background: url('images/Logo.PNG') center 20% / 90% no-repeat;
+      opacity: 0.85;
+    }
+    .intro-content {
+      max-width: 100%;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.97) 60%, transparent 100%);
+      padding: 60px 28px 0;
+      align-items: center;
+    }
+    .intro-title { font-size: 38px; text-align: center; }
+    .intro-sub { font-size: 18px; letter-spacing: 2px; text-align: center; }
+    .intro-line { margin: 0 auto 14px; }
+    .intro-desc { font-size: 13px; text-align: center; margin-bottom: 18px; max-width: 100%; }
+    .intro-pills { justify-content: center; margin-bottom: 20px; }
+    .start-btn { width: 100%; padding: 16px; font-size: 16px; }
+
+    /* Slide captions */
+    .slide-title { font-size: 16px; }
+    .slide-desc { font-size: 12px; }
+    .img-overlay { padding: 40px 16px 12px; }
+
+    /* Controls — bigger touch targets */
+    .nav-btn { padding: 10px 16px; font-size: 13px; }
+    .controls { padding: 8px 12px; }
+
+    /* Tabs */
+    .tab { font-size: 11px; padding: 10px 4px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <img class="header-logo" src="images/Logo.PNG" alt="Shaun's Logo" />
+    <div>
+      <div class="brand-name">SHAUN'S DEMOLITIONS & EXCAVATIONS</div>
+      <div class="brand-sub">Brand & Fleet Showcase — Confidential Presentation</div>
+    </div>
+  </div>
+  <div class="phone-tag">0447 933 089</div>
+</header>
+
+<div class="tabs" id="tabs" style="display:none;">
+  <div class="tab active" onclick="switchSection('v')">🚛&nbsp; Fleet &amp; Vehicles</div>
+  <div class="tab" onclick="switchSection('u')">👕&nbsp; Uniforms</div>
+</div>
+
+<main>
+  <div class="rail" id="rail"></div>
+  <div class="stage">
+
+    <!-- INTRO -->
+    <div class="intro-screen" id="intro">
+      <div class="intro-bg"></div>
+      <div class="intro-content">
+        <div class="intro-title">SHAUN'S <sup style="font-size:13px;font-weight:600;letter-spacing:0;vertical-align:super;background:linear-gradient(180deg,#e8e8e8 0%,#a0a0a0 40%,#d4d4d4 60%,#787878 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">P/L</sup></div>
+        <div class="intro-sub">Demolitions &amp; Excavations</div>
+        <div class="intro-line"></div>
+        <div class="intro-desc">
+          A complete brand showcase — from the crew's uniforms on site
+          to the full vehicle and fleet wrap designs.
+          Every touchpoint, totally on brand.
+        </div>
+        <div class="intro-pills">
+          <div class="intro-pill">🚛 Fleet &amp; Vehicles</div>
+          <div class="intro-pill">👕 Uniforms &amp; Workwear</div>
+        </div>
+        <button class="start-btn" onclick="start()">View the Full Showcase →</button>
+      </div>
+    </div>
+
+    <!-- SLIDES -->
+    <div class="slides-container" id="slides-wrap" style="display:none;">
+
+      <!-- UNIFORM SLIDES -->
+      <div class="slide u-slide active">
+        <div class="img-wrap"><img src="images/7A31F1D9-7AFE-45C2-822C-F8E1E1A5D34E.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">The Full Uniform Range</div><div class="slide-desc">Black hoodies, hi-vis vests in yellow &amp; orange, soft-shell jackets, and branded beanies — the complete Shaun's workwear lineup.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/5A5278B3-3CE7-47BD-BEF9-24C33C1D3A03.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">Hi-Vis Shirts &amp; Trucker Cap</div><div class="slide-desc">Yellow and orange hi-vis work shirts plus branded long sleeve tees and the iconic Shaun's trucker cap — site-ready from day one.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/6C8EAFB1-EA0C-49ED-B50D-677EA5B74CEA.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">Hi-Vis Uniforms — Built for Site Dominance</div><div class="slide-desc">The crew in full hi-vis gear. Professionally visible and always on brand on every site.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/8154A740-D19F-4C20-AF0C-CC860ED230A4.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">Back-of-Shirt Branding in Action</div><div class="slide-desc">Logo, phone number, and "We make buildings disappear" — a walking billboard on every site visit.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/455DFE90-9E0A-42C7-BB03-7893524DA888.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">Hoodie &amp; Beanie — On the Job</div><div class="slide-desc">Black pull-over hoodie and matching beanie. Full back print with logo, 0447 933 089, and the tagline.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/9EE781B0-B497-47F3-B284-A93EDDA8EB8A.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">Hi-Vis Work Shirt — Front &amp; Back</div><div class="slide-desc">Yellow and orange hi-vis shirts with front patch branding and full back print. Reflective tape throughout for site compliance.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/5BA5048E-32CB-4828-AD20-69DF12F0503D.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">The Full Team — Mud &amp; All</div><div class="slide-desc">Real work, real crew. Matching branded shirts and beanies unify the team even after a full day on site.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/74419532-B5B9-4029-B959-14EF496F5C08.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">Night Shift — The Brand Never Stops</div><div class="slide-desc">Branded tees holding up after dark. Logo and contact details visible on after-hours jobs.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/A8F9771C-508C-4330-9E5B-09070B2ED51B.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">Hard Yakka Work Shirts</div><div class="slide-desc">Shaun's Demolitions embroidered on Hard Yakka shirts in khaki and brown. Tough Australian workwear with the brand front and centre.</div></div>
+        </div>
+      </div>
+      <div class="slide u-slide">
+        <div class="img-wrap"><img src="images/DA4BD08D-BDAC-4314-8D17-E7BE74BA39FA.PNG" alt="" />
+          <div class="img-overlay"><div class="section-badge">Uniforms</div><div class="slide-title">We Make Buildings Disappear.</div><div class="slide-desc">A complete professional uniform system for the whole crew. Every garment carries the brand. Next up — the fleet.</div></div>
+        </div>
+      </div>
+
+      <!-- VEHICLE SLIDES -->
+      <div class="slide v-slide">
+        <div class="img-wrap"><img src="images/ute1.PNG" alt="Ute Wrap v1" />
+          <div class="img-overlay"><div class="section-badge v">Fleet &amp; Vehicles</div><div class="slide-title">Ute Wrap — Version 1</div><div class="slide-desc">Full body wrap on the black LandCruiser ute. Door: name, services, phone. Tray: full excavator logo with services list and FREE QUOTES callout.</div></div>
+        </div>
+      </div>
+      <div class="slide v-slide">
+        <div class="img-wrap"><img src="images/ute2.PNG" alt="Ute Wrap v2" />
+          <div class="img-overlay"><div class="section-badge v">Fleet &amp; Vehicles</div><div class="slide-title">Ute Wrap — Version 2</div><div class="slide-desc">Updated tray wrap — Residential, Commercial, Industrial coverage. Full services list with "We make buildings disappear!" on the rear panel.</div></div>
+        </div>
+      </div>
+      <div class="slide v-slide">
+        <div class="img-wrap"><img src="images/uteback.PNG" alt="Rear Tailgate" />
+          <div class="img-overlay"><div class="section-badge v">Fleet &amp; Vehicles</div><div class="slide-title">Rear Tailgate Wrap — 1820mm</div><div class="slide-desc">Full rear panel at 1820mm wide. Building Demolitions &amp; Excavations — Renovation Strip-Outs, Partial Demolitions — CALL NOW 0447 933 089.</div></div>
+        </div>
+      </div>
+      <div class="slide v-slide">
+        <div class="img-wrap"><img src="images/truck.PNG" alt="Tipper Truck" />
+          <div class="img-overlay"><div class="section-badge v">Fleet &amp; Vehicles</div><div class="slide-title">Tipper Truck Wrap</div><div class="slide-desc">Full side-panel wrap on the tipper truck. The excavator beast logo dominates the tray — Shaun's name and 0447 933 089 in bold type. Unmissable on any road.</div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="timer-bar-wrap" id="timer-bar-wrap" style="display:none;">
+      <div class="timer-bar" id="timer-bar"></div>
+      <div class="timer-label" id="timer-label">auto</div>
+    </div>
+
+    <div class="controls" id="controls" style="display:none;">
+      <button class="nav-btn" onclick="changeSlide(-1, true)">← Prev</button>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+        <div class="dots" id="dots"></div>
+        <div class="counter" id="counter"></div>
+      </div>
+      <button class="nav-btn" onclick="changeSlide(1, true)">Next →</button>
+    </div>
+
+  </div>
+</main>
+
+<script>
+const isMobile = () => window.innerWidth <= 640;
+
+const data = {
+  u: {
+    slides: [...document.querySelectorAll('.u-slide')],
+    thumbs: [
+      ['7A31F1D9-7AFE-45C2-822C-F8E1E1A5D34E.PNG','Full Range'],
+      ['5A5278B3-3CE7-47BD-BEF9-24C33C1D3A03.PNG','Hi-Vis Shirts'],
+      ['6C8EAFB1-EA0C-49ED-B50D-677EA5B74CEA.PNG','Site Uniforms'],
+      ['8154A740-D19F-4C20-AF0C-CC860ED230A4.PNG','Back Print'],
+      ['455DFE90-9E0A-42C7-BB03-7893524DA888.PNG','Hoodie'],
+      ['9EE781B0-B497-47F3-B284-A93EDDA8EB8A.PNG','Hi-Vis F&B'],
+      ['5BA5048E-32CB-4828-AD20-69DF12F0503D.PNG','Mud & All'],
+      ['74419532-B5B9-4029-B959-14EF496F5C08.PNG','Night Shift'],
+      ['A8F9771C-508C-4330-9E5B-09070B2ED51B.PNG','Hard Yakka'],
+      ['DA4BD08D-BDAC-4314-8D17-E7BE74BA39FA.PNG','Sign Off'],
+    ]
+  },
+  v: {
+    slides: [...document.querySelectorAll('.v-slide')],
+    thumbs: [
+      ['ute1.PNG',    'Ute Wrap v1'],
+      ['ute2.PNG',    'Ute Wrap v2'],
+      ['uteback.PNG', 'Rear Tailgate'],
+      ['truck.PNG',   'Tipper Truck'],
+    ]
+  }
+};
+
+let sec = 'u', idx = 0;
+const rail       = document.getElementById('rail');
+const dotsEl     = document.getElementById('dots');
+const counter    = document.getElementById('counter');
+const timerBar   = document.getElementById('timer-bar');
+const timerLabel = document.getElementById('timer-label');
+const timerWrap  = document.getElementById('timer-bar-wrap');
+
+// ── TIMER SETTINGS ──
+const AUTO_INTERVAL   = 10000;  // ms between auto-advances
+const PAUSE_DURATION  = 45000;  // ms to pause after manual nav
+const TICK            = 50;     // ms per progress update
+
+let autoTimer    = null;  // setInterval for auto-advance
+let pauseTimer   = null;  // setTimeout to resume after manual nav
+let paused       = false;
+let elapsed      = 0;     // ms elapsed in current slide
+
+function startAutoTimer() {
+  clearInterval(autoTimer);
+  elapsed = 0;
+  paused = false;
+  timerBar.classList.remove('paused');
+  timerLabel.textContent = 'auto';
+
+  // Smoothly drain bar over AUTO_INTERVAL using CSS transition
+  timerBar.style.transition = 'none';
+  timerBar.style.transform = 'scaleX(1)';
+  timerBar.getBoundingClientRect(); // force reflow
+  timerBar.style.transition = `transform ${AUTO_INTERVAL}ms linear`;
+  timerBar.style.transform = 'scaleX(0)';
+
+  autoTimer = setTimeout(function advance() {
+    const isLast = idx === data[sec].slides.length - 1;
+    if (isLast) {
+      switchSection(nextSectionKey());
+    } else {
+      goTo(idx + 1);
+      // Reset bar for next slide
+      timerBar.style.transition = 'none';
+      timerBar.style.transform = 'scaleX(1)';
+      timerBar.getBoundingClientRect();
+      timerBar.style.transition = `transform ${AUTO_INTERVAL}ms linear`;
+      timerBar.style.transform = 'scaleX(0)';
+      autoTimer = setTimeout(advance, AUTO_INTERVAL);
+    }
+  }, AUTO_INTERVAL);
+}
+
+function pauseTimer_fn(manualNav) {
+  clearTimeout(autoTimer);
+  clearTimeout(pauseTimer);
+  paused = true;
+  timerBar.classList.add('paused');
+
+  if (manualNav) {
+    // Smoothly drain the bar over 45s using a single CSS transition
+    timerBar.style.transition = `transform ${PAUSE_DURATION}ms linear`;
+    timerBar.style.transform = 'scaleX(1)';
+    // Force reflow so transition starts from scaleX(1)
+    timerBar.getBoundingClientRect();
+    timerBar.style.transform = 'scaleX(0)';
+
+    // Update label every second without touching the bar
+    let remaining = PAUSE_DURATION / 1000;
+    timerLabel.textContent = `resuming in ${remaining}s`;
+    const labelTick = setInterval(() => {
+      remaining -= 1;
+      if (remaining > 0) {
+        timerLabel.textContent = `resuming in ${remaining}s`;
+      } else {
+        clearInterval(labelTick);
+      }
+    }, 1000);
+
+    pauseTimer = setTimeout(() => {
+      clearInterval(labelTick);
+      startAutoTimer();
+    }, PAUSE_DURATION);
+  }
+}
+
+function buildNav(s) {
+  rail.innerHTML = ''; dotsEl.innerHTML = '';
+  const mobile = isMobile();
+  data[s].thumbs.forEach(([img, label], i) => {
+    const isV = s === 'v';
+    if (!mobile) {
+      const th = document.createElement('div');
+      th.className = 'thumb' + (isV ? ' v-thumb' : '') + (i === 0 ? ' active' : '');
+      th.innerHTML = `<img src="images/${img}" /><div class="thumb-label">${label}</div>`;
+      th.onclick = () => { goTo(i); pauseTimer_fn(true); };
+      rail.appendChild(th);
+    }
+    const d = document.createElement('div');
+    d.className = 'dot' + (isV ? ' vdot' : '') + (i === 0 ? ' active' : '');
+    d.onclick = () => { goTo(i); pauseTimer_fn(true); };
+    dotsEl.appendChild(d);
+  });
+}
+
+function goTo(n) {
+  const slides = data[sec].slides;
+  const prev = slides[idx];
+  idx = (n + slides.length) % slides.length;
+  const next = slides[idx];
+
+  // Keep old slide briefly visible during fade
+  prev.classList.remove('active');
+  prev.classList.add('inactive');
+  setTimeout(() => prev.classList.remove('inactive'), 750);
+
+  next.classList.add('active');
+
+  if (rail.children[idx]) {
+    rail.children[idx].classList.add('active');
+    rail.children[idx].scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+  if (rail.children[n] !== undefined) {
+    // clear old rail active
+    [...rail.children].forEach((c, i) => { if (i !== idx) c.classList.remove('active'); });
+  }
+  dotsEl.children[idx].classList.add('active');
+  [...dotsEl.children].forEach((d, i) => { if (i !== idx) d.classList.remove('active'); });
+  counter.textContent = (idx + 1) + ' / ' + slides.length;
+}
+
+function changeSlide(d, manual = false) {
+  goTo(idx + d);
+  if (manual) pauseTimer_fn(true);
+}
+
+function switchSection(s) {
+  data[sec].slides.forEach(sl => sl.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.tab[onclick*="'${s}'"]`).classList.add('active');
+  sec = s; idx = 0;
+  buildNav(s);
+  data[s].slides[0].classList.add('active');
+  counter.textContent = '1 / ' + data[s].slides.length;
+  startAutoTimer();
+}
+
+function nextSectionKey() {
+  return sec === 'v' ? 'u' : 'v';
+}
+
+function start() {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('slides-wrap').style.display = 'flex';
+  document.getElementById('controls').style.display = 'flex';
+  document.getElementById('tabs').style.display = 'flex';
+  timerWrap.style.display = 'block';
+  if (isMobile()) rail.style.display = 'none';
+  switchSection('v');
+}
+
+// Keyboard — manual nav
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft')  changeSlide(-1, true);
+  if (e.key === 'ArrowRight') changeSlide(1, true);
+});
+
+// Touch swipe — manual nav
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive: true});
+document.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1, true);
+}, {passive: true});
+
+// Resize
+window.addEventListener('resize', () => {
+  if (document.getElementById('slides-wrap').style.display !== 'none') {
+    rail.style.display = isMobile() ? 'none' : 'flex';
+  }
+});
+</script>
+</body>
+</html>
